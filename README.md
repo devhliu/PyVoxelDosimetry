@@ -1,11 +1,6 @@
 # PyVoxelDosimetry
 
-## Internal Dosimetry Package for Nuclear Medicine
-Version: 0.1.0  
-Last Updated: 2025-02-08  
-Author: Hui Liu (huiliu.liu@gmail.com)， Claude 3.5 Sonnet
-
-## Overview
+## Internal Dosimetry Package for Nuclear Medicine - Overview
 PyVoxelDosimetry is a comprehensive Python package for voxel-level internal dosimetry calculations in nuclear medicine. It supports various radionuclide tracers and provides multiple calculation methods, advanced tissue composition handling, and deep learning-based segmentation.
 
 ## Features
