@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu"
+  },
+  "io": {
+    "format": "nifti",
+    "compression": true,
+    "metadata_enabled": true
+  },
+  "logging": {
+    "level": "INFO",
+    "file_enabled": true,
+    "file_path": "pyvoxeldosimetry.log"
+  },
+  "units": {
+    "activity": "Bq",
+    "dose": "Gy",
+    "time": "hours",
+    "distance": "mm"
+  },
+  "tissue": {
+    "default_density": 1.0,
+    "default_composition": "water"
+  }
+}

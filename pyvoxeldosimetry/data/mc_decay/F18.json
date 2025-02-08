@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu",
+    "source": "ICRP-107"
+  },
+  "nuclide": {
+    "name": "F-18",
+    "symbol": "F18",
+    "atomic_number": 9,
+    "mass_number": 18
+  },
+  "decay": {
+    "half_life": 6586.2,
+    "half_life_unit": "seconds",
+    "decay_constant": 1.0525e-4
+  },
+  "emissions": {
+    "positron": {
+      "mean_energy": 0.250,
+      "max_energy": 0.634,
+      "yield": 0.967,
+      "spectrum": "data/spectra/F18_positron.dat"
+    },
+    "gamma": [
+      {
+        "energy": 0.511,
+        "yield": 1.934,
+        "type": "annihilation"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu"
+  },
+  "monte_carlo": {
+    "n_particles": 1000000,
+    "batch_size": 10000,
+    "random_seed": 42,
+    "gpu_enabled": true,
+    "n_threads": 4,
+    "physics_list": "QGSP_BIC_EMY",
+    "scoring": {
+      "resolution": 1.0,
+      "grid_size": [101, 101, 101]
+    }
+  },
+  "kernel": {
+    "interpolation": "linear",
+    "extrapolation_enabled": false,
+    "gpu_enabled": true,
+    "n_threads": 4,
+    "batch_processing": true
+  }
+}

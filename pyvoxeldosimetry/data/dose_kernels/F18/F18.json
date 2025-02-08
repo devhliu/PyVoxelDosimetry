@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu",
+    "method": "Monte Carlo"
+  },
+  "nuclide": {
+    "name": "F-18",
+    "symbol": "F18"
+  },
+  "kernel": {
+    "voxel_size": 1.0,
+    "grid_size": [101, 101, 101],
+    "max_range": 50.0,
+    "scaling_factor": 1.0e-12,
+    "tissue_medium": "water",
+    "file_path": "data/kernels/F18_1mm.dat"
+  },
+  "validation": {
+    "reference_points": [
+      {"distance": 1.0, "value": 2.34e-11, "uncertainty": 0.05},
+      {"distance": 5.0, "value": 3.45e-13, "uncertainty": 0.07},
+      {"distance": 10.0, "value": 4.56e-14, "uncertainty": 0.10}
+    ],
+    "mird_comparison": "data/validation/F18_mird.csv"
+  }
+}

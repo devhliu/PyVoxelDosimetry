@@ -54,3 +54,13 @@ pyvoxeldosimetry/
 ├── segmentation/              # Deep learning segmentation
 ├── registration/              # Image registration
 └── time_integration/          # Time-activity fitting
+
+pyvoxeldosimetry/core/
+├── __init__.py
+├── dosimetry_base.py
+├── monte_carlo.py
+├── kernel_convolution.py
+├── activity_sampler.py
+├── image_registration.py
+├── dose_calculator.py
+└── utils.py

@@ -3,32 +3,69 @@ Base class for dosimetry calculations.
 """
 from abc import ABC, abstractmethod
 import numpy as np
-from typing import Dict, Any, Optional
-import nibabel as nib
+from typing import Dict, Any, Optional, Union, List, Tuple
 
 class DosimetryCalculator(ABC):
+    """Abstract base class for all dosimetry calculation methods."""
+    
     def __init__(self, 
                  radionuclide: str,
                  tissue_composition: Any,
-                 config: Dict[str, Any] = None):
+                 config: Optional[Dict[str, Any]] = None):
+        """
+        Initialize dosimetry calculator.
+        
+        Args:
+            radionuclide: Name of the radionuclide
+            tissue_composition: Object describing tissue properties
+            config: Additional configuration parameters
+        """
         self.radionuclide = radionuclide
         self.tissue_composition = tissue_composition
         self.config = config or {}
+        self._validate_inputs()
+        
+    def _validate_inputs(self):
+        """Validate initialization inputs."""
+        if not isinstance(self.radionuclide, str):
+            raise TypeError("Radionuclide must be a string")
         
     @abstractmethod
-    def calculate_dose_rate(self, 
+    def calculate_dose_rate(self,
                           activity_map: np.ndarray,
-                          voxel_size: tuple) -> np.ndarray:
-        """Calculate dose rate for given activity distribution."""
+                          voxel_size: Tuple[float, float, float]
+                          ) -> np.ndarray:
+        """
+        Calculate dose rate from activity distribution.
+        
+        Args:
+            activity_map: 3D array of activity values (Bq)
+            voxel_size: Tuple of voxel dimensions (mm)
+            
+        Returns:
+            3D array of dose rate values (Gy/s)
+        """
         pass
     
-    def save_results(self, 
-                    dose_map: np.ndarray,
-                    output_path: str,
-                    reference_nifti: Optional[nib.Nifti1Image] = None):
-        """Save dose map as NIfTI file."""
-        if reference_nifti is not None:
-            nifti_image = nib.Nifti1Image(dose_map, reference_nifti.affine)
-        else:
-            nifti_image = nib.Nifti1Image(dose_map, np.eye(4))
-        nib.save(nifti_image, output_path)
+    @abstractmethod
+    def calculate_absorbed_dose(self,
+                              activity_maps: List[np.ndarray],
+                              time_points: List[float],
+                              voxel_size: Tuple[float, float, float]
+                              ) -> np.ndarray:
+        """
+        Calculate absorbed dose from time series of activity maps.
+        
+        Args:
+            activity_maps: List of 3D activity arrays
+            time_points: List of time points (hours)
+            voxel_size: Tuple of voxel dimensions (mm)
+            
+        Returns:
+            3D array of absorbed dose values (Gy)
+        """
+        pass
+    
+    def get_config(self) -> Dict[str, Any]:
+        """Return current configuration."""
+        return self.config.copy()
