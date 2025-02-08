@@ -1,0 +1,43 @@
+pyvoxeldosimetry/
+├── LICENSE
+├── README.md
+├── setup.py
+├── requirements.txt
+├── pyvoxeldosimetry/
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── dose_kernels/
+│   │   │   ├── F18/
+│   │   │   ├── Ga68/
+│   │   │   ├── Cu64/
+│   │   │   ├── Zr89/
+│   │   │   ├── Y90/
+│   │   │   ├── I131/
+│   │   │   ├── Lu177/
+│   │   │   ├── Tb161/
+│   │   │   ├── Ac225/
+│   │   │   └── Pb212/
+│   │   └── pretrained_models/
+│   │       ├── organ_segmentation/
+│   │       └── lesion_segmentation/
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── radionuclides.py
+│   │   └── tissue_properties.py
+│   ├── segmentation/
+│   │   ├── __init__.py
+│   │   ├── nnunet_wrapper.py
+│   │   ├── organ_segmentation.py
+│   │   └── lesion_segmentation.py
+│   └── [other existing folders...]
+
+pyvoxeldosimetry/
+├── data/
+│   ├── dose_kernels/          # Pre-calculated dose kernels
+│   └── pretrained_models/     # nnU-Net models
+├── core/                      # Core dosimetry calculations
+├── tissue/                    # Tissue composition handling
+├── segmentation/              # Deep learning segmentation
+├── registration/              # Image registration
+└── time_integration/          # Time-activity fitting
