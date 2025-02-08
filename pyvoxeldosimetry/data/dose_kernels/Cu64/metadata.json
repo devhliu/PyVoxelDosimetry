@@ -1,0 +1,55 @@
+{
+    "name": "Cu64",
+    "atomic_number": 29,
+    "mass_number": 64,
+    "half_life": 12.701,
+    "half_life_unit": "hours",
+    "decay_modes": [
+        {
+            "type": "beta+",
+            "branching_ratio": 0.174,
+            "spectrum": {
+                "mean_energy": 0.278,
+                "max_energy": 0.653,
+                "spectrum_points": {
+                    "energy": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.653],
+                    "probability": [0.0, 0.25, 0.42, 0.48, 0.42, 0.25, 0.1, 0.0]
+                }
+            }
+        },
+        {
+            "type": "beta-",
+            "branching_ratio": 0.391,
+            "spectrum": {
+                "mean_energy": 0.190,
+                "max_energy": 0.579,
+                "spectrum_points": {
+                    "energy": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.579],
+                    "probability": [0.0, 0.28, 0.45, 0.48, 0.35, 0.15, 0.0]
+                }
+            }
+        },
+        {
+            "type": "EC",
+            "branching_ratio": 0.435
+        }
+    ],
+    "gamma_emissions": [
+        {
+            "energy": 0.511,
+            "intensity": 0.348
+        },
+        {
+            "energy": 1.346,
+            "intensity": 0.00475
+        }
+    ],
+    "physics_parameters": {
+        "beta_csda_range": 2.4,
+        "positron_annihilation_range": 0.3,
+        "gamma_mass_attenuation": {
+            "energies": [0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1],
+            "coefficients": [4.052, 1.267, 0.5478, 0.1552, 0.0686, 0.0405, 0.0304, 0.0242, 0.0233]
+        }
+    }
+}

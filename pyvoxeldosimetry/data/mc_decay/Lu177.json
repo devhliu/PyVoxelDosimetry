@@ -1,0 +1,44 @@
+{
+    "name": "Lu177",
+    "atomic_number": 71,
+    "mass_number": 177,
+    "half_life": 6.647,
+    "half_life_unit": "days",
+    "decay_modes": [
+        {
+            "type": "beta-",
+            "branching_ratio": 1.0,
+            "spectrum": {
+                "mean_energy": 0.149,
+                "max_energy": 0.498,
+                "spectrum_points": {
+                    "energy": [0.0, 0.1, 0.2, 0.3, 0.4, 0.498],
+                    "probability": [0.0, 0.35, 0.48, 0.42, 0.22, 0.0]
+                }
+            }
+        }
+    ],
+    "gamma_emissions": [
+        {
+            "energy": 0.208,
+            "intensity": 0.1094
+        },
+        {
+            "energy": 0.113,
+            "intensity": 0.0641
+        }
+    ],
+    "conversion_electrons": [
+        {
+            "energy": 0.1819,
+            "intensity": 0.0047
+        }
+    ],
+    "physics_parameters": {
+        "beta_csda_range": 1.7,
+        "gamma_mass_attenuation": {
+            "energies": [0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1],
+            "coefficients": [4.312, 1.348, 0.5798, 0.1638, 0.0723, 0.0426, 0.0319, 0.0253, 0.0244]
+        }
+    }
+}

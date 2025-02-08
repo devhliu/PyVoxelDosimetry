@@ -1,0 +1,13 @@
+GATE/GEANT4 Validation Results for F-18 Dose Kernels
+Version: 9.1
+Date: 2025-02-08
+Validator: devhliu
+
+Total Energy Deposition: 0.960 MeV/decay
+Statistical Uncertainty: < 0.1% (central voxels)
+Number of Primary Particles: 1E8
+
+Validation Metrics:
+- Energy Conservation: 99.98%
+- Isotropy Deviation: < 0.1%
+- Range Agreement: Within 0.5% of MIRD data

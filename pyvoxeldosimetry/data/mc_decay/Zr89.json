@@ -1,0 +1,31 @@
+{
+    "name": "Zr89",
+    "atomic_number": 40,
+    "mass_number": 89,
+    "half_life": 78.41,
+    "half_life_unit": "hours",
+    "decay_modes": [
+        {
+            "type": "beta+",
+            "branching_ratio": 0.227,
+            "spectrum": {
+                "mean_energy": 0.396,
+                "max_energy": 0.902,
+                "spectrum_points": {
+                    "energy": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.902],
+                    "probability": [0.0, 0.22, 0.38, 0.48, 0.45, 0.38, 0.28, 0.18, 0.08, 0.0]
+                }
+            }
+        },
+        {
+            "type": "EC",
+            "branching_ratio": 0.773
+        }
+    ],
+    "gamma_emissions": [
+        {
+            "energy": 0.511,
+            "intensity": 0.454
+        },
+        {
+            "energy": 

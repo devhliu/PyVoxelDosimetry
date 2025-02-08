@@ -104,6 +104,26 @@ pyvoxeldosimetry/
 ## Dose Kernel Data
 The package includes pre-calculated dose kernels for supported radionuclides at multiple spatial resolutions (1mm, 2mm, 3mm). These are automatically loaded based on the selected radionuclide and voxel size.
 
+## Monte Carlo Decay Data
+### Supported Radionuclides:
+- F-18 (β+ emitter)
+- Ga-68 (β+ emitter)
+- Cu-64 (β+/EC)
+- Zr-89 (β+)
+- Y-90 (β-)
+- I-131 (β-/γ)
+- Lu-177 (β-/γ)
+- Tb-161 (β-)
+- Ac-225 (α)
+- Pb-212 (α/β-)
+
+Decay data is compiled from:
+
+- ICRP Publication 107
+- MIRD Radionuclide Data
+- Nuclear Data Sheets
+- NIST Standard Reference Data
+
 ## Segmentation Models
 Pre-trained nnU-Net v2 models are provided for:
 

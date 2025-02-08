@@ -1,0 +1,46 @@
+{
+    "name": "Pb212",
+    "atomic_number": 82,
+    "mass_number": 212,
+    "half_life": 10.64,
+    "half_life_unit": "hours",
+    "decay_modes": [
+        {
+            "type": "beta-",
+            "branching_ratio": 1.0,
+            "spectrum": {
+                "mean_energy": 0.102,
+                "max_energy": 0.574,
+                "spectrum_points": {
+                    "energy": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.574],
+                    "probability": [0.0, 0.35, 0.45, 0.38, 0.25, 0.12, 0.0]
+                }
+            }
+        }
+    ],
+    "gamma_emissions": [
+        {
+            "energy": 0.2386,
+            "intensity": 0.437
+        },
+        {
+            "energy": 0.300,
+            "intensity": 0.0328
+        }
+    ],
+    "physics_parameters": {
+        "beta_csda_range": 2.1,
+        "gamma_mass_attenuation": {
+            "energies": [0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1],
+            "coefficients": [4.398, 1.375, 0.5916, 0.1671, 0.0737, 0.0435, 0.0326, 0.0259, 0.0249]
+        }
+    },
+    "daughters": [
+        {
+            "nuclide": "Bi212",
+            "half_life": 60.55,
+            "half_life_unit": "minutes",
+            "decay_type": "beta-/alpha"
+        }
+    ]
+}

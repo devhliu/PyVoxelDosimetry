@@ -1,0 +1,43 @@
+{
+    "name": "Ga68",
+    "atomic_number": 31,
+    "mass_number": 68,
+    "half_life": 67.71,
+    "half_life_unit": "minutes",
+    "decay_modes": [
+        {
+            "type": "beta+",
+            "branching_ratio": 0.891,
+            "spectrum": {
+                "mean_energy": 0.836,
+                "max_energy": 1.899,
+                "spectrum_points": {
+                    "energy": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 1.899],
+                    "probability": [0.0, 0.15, 0.28, 0.38, 0.45, 0.48, 0.45, 0.38, 0.28, 0.15, 0.0]
+                }
+            }
+        },
+        {
+            "type": "EC",
+            "branching_ratio": 0.109
+        }
+    ],
+    "gamma_emissions": [
+        {
+            "energy": 0.511,
+            "intensity": 1.782
+        },
+        {
+            "energy": 1.077,
+            "intensity": 0.032
+        }
+    ],
+    "physics_parameters": {
+        "beta_csda_range": 9.2,
+        "positron_annihilation_range": 0.5,
+        "gamma_mass_attenuation": {
+            "energies": [0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1],
+            "coefficients": [4.078, 1.275, 0.5503, 0.1557, 0.0688, 0.0406, 0.0305, 0.0243, 0.0234]
+        }
+    }
+}

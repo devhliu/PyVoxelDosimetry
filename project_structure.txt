@@ -18,6 +18,19 @@ pyvoxeldosimetry/
 │   │   │   ├── Tb161/
 │   │   │   ├── Ac225/
 │   │   │   └── Pb212/
+|   |   ├── mc_decay/
+│   |   |   ├── __init__.py
+│   |   |   ├── F18.json
+│   |   |   ├── Ga68.json
+│   |   |   ├── Cu64.json
+│   |   |   ├── Zr89.json
+│   |   |   ├── Y90.json
+│   |   |   ├── I131.json
+│   |   |   ├── Lu177.json
+│   |   |   ├── Tb161.json
+│   |   |   ├── Ac225.json
+│   |   |   ├── Pb212.json
+│   |   |   └── README.md
 │   │   └── pretrained_models/
 │   │       ├── organ_segmentation/
 │   │       └── lesion_segmentation/
