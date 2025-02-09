@@ -3,33 +3,45 @@ Dose point kernel convolution calculator.
 """
 import numpy as np
 from typing import Dict, Any, Optional, List, Tuple
+from dataclasses import dataclass
 from .dosimetry_base import DosimetryCalculator
 from ..data.dose_kernels import load_kernel
+
+@dataclass
+class DecayProperties:
+    half_life: float  # hours
+    decay_modes: Dict[str, float]  # mode: branching ratio
+    particle_energies: Dict[str, List[float]]  # mode: [energies in MeV]
+
+@dataclass
+class KernelConfig:
+    name: str
+    symbol: str
+    atomic_number: int
+    mass_number: int
+    decay_properties: DecayProperties
+    reference: str
 
 class KernelConvolutionCalculator(DosimetryCalculator):
     def __init__(self,
                  radionuclide: str,
-                 tissue_composition: Any,
+                 tissue_name: str,
                  kernel_resolution: float = 1.0,
                  config: Optional[Dict[str, Any]] = None):
-        """
-        Initialize kernel convolution calculator.
-        
-        Args:
-            radionuclide: Radionuclide name
-            tissue_composition: Tissue composition object
-            kernel_resolution: Kernel voxel size in mm
-            config: Additional configuration parameters
-        """
-        super().__init__(radionuclide, tissue_composition, config)
+        """Initialize calculator."""
+        super().__init__(radionuclide, tissue_name, config)
+        self.kernel_manager = KernelManager()
         self.kernel_resolution = kernel_resolution
+        self.tissue_name = tissue_name
         self._load_dose_kernel()
         
     def _load_dose_kernel(self):
-        """Load dose point kernel for the radionuclide."""
-        self.kernel = load_kernel(
+        """Load or generate dose kernel."""
+        self.kernel = self.kernel_manager.get_kernel(
             self.radionuclide,
-            self.kernel_resolution
+            self.tissue_name,
+            self.kernel_resolution,
+            size=(64, 64, 64)  # Default size
         )
         
     def calculate_dose_rate(self,

@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu",
+    "method": "Monte Carlo",
+    "references": [
+      "MIRD Pamphlet No. 21",
+      "ICRP Publication 107",
+      "EANM Guidelines 2023"
+    ]
+  },
+  "nuclide": {
+    "name": "Actinium-225",
+    "symbol": "Ac225",
+    "half_life": 240.0,  // hours
+    "decay_modes": {
+      "alpha": 1.0
+    },
+    "particle_energies": {
+      "alpha_energies": [
+        {"energy": 5.830, "intensity": 0.506},  // MeV
+        {"energy": 5.792, "intensity": 0.494}
+      ],
+      "daughters": [
+        {
+          "name": "Fr221",
+          "half_life": 0.00814,  // hours
+          "alpha_energy": 6.341   // MeV
+        },
+        {
+          "name": "At217",
+          "half_life": 0.000098,  // hours
+          "alpha_energy": 7.067   // MeV
+        },
+        {
+          "name": "Bi213",
+          "half_life": 0.760,    // hours
+          "alpha_energy": 5.875,  // MeV
+          "beta_fraction": 0.0216
+        },
+        {
+          "name": "Po213",
+          "half_life": 0.000001, // hours
+          "alpha_energy": 8.375   // MeV
+        }
+      ],
+      "gamma_lines": [
+        {"energy": 0.100, "intensity": 0.012},
+        {"energy": 0.150, "intensity": 0.036},
+        {"energy": 0.440, "intensity": 0.026}
+      ]
+    }
+  },
+  "kernel": {
+    "voxel_size": 1.0,  // mm
+    "grid_size": [251, 251, 251],  // large grid for alpha range
+    "max_range": 125.0,  // mm
+    "scaling_factor": 1.0e-12,
+    "supported_media": [
+      "water",
+      "lung",
+      "soft_tissue",
+      "bone",
+      "iodine_contrast"
+    ]
+  },
+  "validation": {
+    "reference_points": [
+      {"distance": 1.0, "value": 9.89e-10, "uncertainty": 0.05},
+      {"distance": 5.0, "value": 8.90e-12, "uncertainty": 0.07},
+      {"distance": 10.0, "value": 7.89e-13, "uncertainty": 0.10}
+    ]
+  }
+}

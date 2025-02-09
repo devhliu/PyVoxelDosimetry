@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu",
+    "method": "Monte Carlo",
+    "references": [
+      "MIRD Pamphlet No. 21",
+      "ICRP Publication 107",
+      "EANM Guidelines 2019"
+    ]
+  },
+  "nuclide": {
+    "name": "Lutetium-177",
+    "symbol": "Lu177",
+    "half_life": 161.52,  // hours
+    "decay_modes": {
+      "beta-": 1.0
+    },
+    "particle_energies": {
+      "beta-_max": [0.498, 0.385, 0.177],  // MeV
+      "beta-_abundance": [0.795, 0.089, 0.116],
+      "gamma_lines": [
+        {"energy": 0.208, "intensity": 0.111},
+        {"energy": 0.113, "intensity": 0.062}
+      ]
+    }
+  },
+  "kernel": {
+    "voxel_size": 1.0,  // mm
+    "grid_size": [81, 81, 81],
+    "max_range": 40.0,  // mm
+    "scaling_factor": 1.0e-12,
+    "supported_media": [
+      "water",
+      "lung",
+      "soft_tissue",
+      "bone",
+      "iodine_contrast"
+    ]
+  },
+  "validation": {
+    "reference_points": [
+      {"distance": 1.0, "value": 3.45e-11, "uncertainty": 0.05},
+      {"distance": 5.0, "value": 4.56e-13, "uncertainty": 0.07},
+      {"distance": 10.0, "value": 5.67e-14, "uncertainty": 0.10}
+    ],
+    "validation_files": {
+      "mird": "validation/Lu177_mird_comparison.csv",
+      "gate": "validation/Lu177_gate_comparison.csv",
+      "fluka": "validation/Lu177_fluka_comparison.csv"
+    }
+  }
+}

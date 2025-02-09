@@ -34,6 +34,16 @@ Kernels have been validated against:
 - Published F-18 FDG PET dosimetry data
 - Cross-validated with multiple Monte Carlo codes
 
+## Folder Structure
+F18/
+├── F18.json                    # Main configuration file
+└── validation/
+    ├── F18_mird_comparison.csv    # MIRD validation data
+    ├── F18_gate_comparison.csv    # GATE MC validation data
+    ├── F18_fluka_comparison.csv   # FLUKA MC validation data
+    ├── plot_validation.py         # Validation plotting script
+    └── F18_validation_comparison.png  # Generated validation plot
+
 ## Usage Example:
 ```python
 import numpy as np
@@ -55,4 +65,3 @@ def load_f18_kernel(resolution_mm: int) -> np.ndarray:
 
 ```
 
-what is inside the folder dose_kernels/XX, and list them all. then download pyvoxeldosimetry/data/dose_kernels/XX/kernel_1-5mm.dat

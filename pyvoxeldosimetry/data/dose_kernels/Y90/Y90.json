@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-02-08 10:05:10",
+    "created_by": "devhliu",
+    "method": "Monte Carlo",
+    "references": [
+      "MIRD Pamphlet No. 21",
+      "ICRP Publication 107",
+      "EANM Guidelines 2013"
+    ]
+  },
+  "nuclide": {
+    "name": "Yttrium-90",
+    "symbol": "Y90",
+    "half_life": 64.1,  // hours
+    "decay_modes": {
+      "beta-": 0.9999,
+      "internal_transition": 0.0001
+    },
+    "particle_energies": {
+      "beta-_max": 2.280,  // MeV
+      "beta-_mean": 0.934, // MeV
+      "bremsstrahlung": true
+    }
+  },
+  "kernel": {
+    "voxel_size": 1.0,  // mm
+    "grid_size": [201, 201, 201],  // larger grid due to high energy
+    "max_range": 100.0,  // mm
+    "scaling_factor": 1.0e-12,
+    "supported_media": [
+      "water",
+      "lung",
+      "soft_tissue",
+      "bone",
+      "iodine_contrast"
+    ]
+  },
+  "validation": {
+    "reference_points": [
+      {"distance": 1.0, "value": 7.89e-11, "uncertainty": 0.05},
+      {"distance": 5.0, "value": 9.01e-13, "uncertainty": 0.07},
+      {"distance": 10.0, "value": 1.23e-13, "uncertainty": 0.10}
+    ],
+    "validation_files": {
+      "mird": "validation/Y90_mird_comparison.csv",
+      "gate": "validation/Y90_gate_comparison.csv",
+      "fluka": "validation/Y90_fluka_comparison.csv"
+    }
+  }
+}

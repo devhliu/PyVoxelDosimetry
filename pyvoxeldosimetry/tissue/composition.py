@@ -2,9 +2,37 @@
 Tissue composition calculation from CT images.
 """
 import numpy as np
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import nibabel as nib
 from scipy.ndimage import gaussian_filter
+from dataclasses import dataclass
+import json
+
+@dataclass
+class TissueProperties:
+    density: float  # g/cm3
+    electron_density: float  # e/cm3
+    effective_Z: float
+    chemical_composition: Dict[str, float]  # element: mass fraction
+    hu_value: float
+    description: str
+
+class TissueManager:
+    def __init__(self):
+        self.tissue_db = {
+            'water': TissueProperties(
+                density=1.0,
+                electron_density=3.34e23,
+                effective_Z=7.42,
+                chemical_composition={'H': 0.111894, 'O': 0.888106},
+                hu_value=0,
+                description='Water reference material'
+            ),
+            # Add other tissue types
+        }
+    
+    def load_tissue(self, name: str) -> TissueProperties:
+        return self.tissue_db.get(name)
 
 class TissueComposition:
     def __init__(self, config: Dict[str, Any] = None):

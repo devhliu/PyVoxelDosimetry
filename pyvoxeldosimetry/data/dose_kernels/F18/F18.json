@@ -3,19 +3,38 @@
     "version": "1.0.0",
     "created_at": "2025-02-08 10:05:10",
     "created_by": "devhliu",
-    "method": "Monte Carlo"
+    "method": "Monte Carlo",
+    "references": [
+      "MIRD Pamphlet No. 21",
+      "ICRP Publication 107"
+    ]
   },
   "nuclide": {
-    "name": "F-18",
-    "symbol": "F18"
+    "name": "Fluorine-18",
+    "symbol": "F18",
+    "half_life": 1.8295,  // hours
+    "decay_modes": {
+      "beta+": 0.967,
+      "EC": 0.033
+    },
+    "particle_energies": {
+      "beta+_max": 0.634,  // MeV
+      "beta+_mean": 0.250, // MeV
+      "annihilation": 0.511  // MeV
+    }
   },
   "kernel": {
-    "voxel_size": 1.0,
+    "voxel_size": 1.0,  // mm
     "grid_size": [101, 101, 101],
-    "max_range": 50.0,
+    "max_range": 50.0,  // mm
     "scaling_factor": 1.0e-12,
-    "tissue_medium": "water",
-    "file_path": "data/kernels/F18_1mm.dat"
+    "supported_media": [
+      "water",
+      "lung",
+      "soft_tissue",
+      "bone",
+      "iodine_contrast"
+    ]
   },
   "validation": {
     "reference_points": [
@@ -23,6 +42,10 @@
       {"distance": 5.0, "value": 3.45e-13, "uncertainty": 0.07},
       {"distance": 10.0, "value": 4.56e-14, "uncertainty": 0.10}
     ],
-    "mird_comparison": "data/validation/F18_mird.csv"
+    "validation_files": {
+      "mird": "validation/F18_mird_comparison.csv",
+      "gate": "validation/F18_gate_comparison.csv",
+      "fluka": "validation/F18_fluka_comparison.csv"
+    }
   }
 }
