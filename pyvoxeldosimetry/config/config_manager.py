@@ -65,28 +65,37 @@ class ConfigManager:
         Get computation configuration for specified method.
         
         Args:
-            method: Computation method ('monte_carlo' or 'kernel')
+            method: Computation method ('gpu_monte_carlo', 'gate_monte_carlo', or 'kernel')
             
         Returns:
             Dictionary containing computation parameters
         """
-        if method not in ['monte_carlo', 'kernel']:
+        if method == 'gpu_monte_carlo':
+            return self.compute_config.get('monte_carlo', {})
+        elif method == 'gate_monte_carlo':
+            return self.compute_config.get('monte_carlo', {})  # Use same config base as monte_carlo
+        elif method == 'kernel':
+            return self.compute_config.get('kernel', {})
+        else:
             raise ValueError(f"Invalid computation method: {method}")
             
         return self.compute_config.get(method, {})
         
+    # Update the list_available_nuclides method
     def list_available_nuclides(self, method: str) -> List[str]:
         """
         List available nuclides for specified method.
         
         Args:
-            method: Computation method ('monte_carlo' or 'kernel')
+            method: Computation method ('gpu_monte_carlo', 'gate_monte_carlo', or 'kernel')
             
         Returns:
             List of available nuclide names
         """
-        if method == 'monte_carlo':
+        if method == 'gpu_monte_carlo':
             data_dir = self.data_dir / 'mc_decay'
+        elif method == 'gate_monte_carlo':
+            data_dir = self.data_dir / 'mc_decay'  # Gate uses the same decay data
         elif method == 'kernel':
             data_dir = self.data_dir / 'dose_kernels'
         else:

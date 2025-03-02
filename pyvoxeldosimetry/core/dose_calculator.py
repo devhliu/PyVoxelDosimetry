@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from .dosimetry_base import DosimetryCalculator
 from .monte_carlo import MonteCarloCalculator
 from .kernel_convolution import KernelConvolutionCalculator
+from .gate_monte_carlo import GateMonteCarloCalculator
 from .activity_sampler import ActivitySampler
 from .image_registration import ImageRegistration
 
@@ -34,7 +35,7 @@ class DoseCalculator:
         
         Args:
             radionuclide: Name of radionuclide
-            method: Calculation method ('kernel' or 'monte_carlo')
+            method: Calculation method ('kernel', 'gpu_monte_carlo', or 'gate_monte_carlo')
             config: Configuration parameters
         """
         self.radionuclide = radionuclide
@@ -48,11 +49,19 @@ class DoseCalculator:
                 tissue_composition=self.config.get('tissue_composition', None),
                 kernel_resolution=self.config.get('kernel_resolution', 1.0)
             )
-        elif self.method == 'monte_carlo':
+        elif self.method == 'gpu_monte_carlo':
             self.calculator = MonteCarloCalculator(
                 radionuclide=radionuclide,
                 tissue_composition=self.config.get('tissue_composition', None),
                 n_particles=self.config.get('n_particles', 1000000)
+            )
+        elif self.method == 'gate_monte_carlo':
+            self.calculator = GateMonteCarloCalculator(
+                radionuclide=radionuclide,
+                tissue_composition=self.config.get('tissue_composition', None),
+                gate_path=self.config.get('gate_path', None),
+                n_particles=self.config.get('n_particles', 1000000),
+                config=self.config
             )
         else:
             raise ValueError(f"Unsupported calculation method: {method}")
