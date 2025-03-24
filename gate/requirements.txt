@@ -1,0 +1,11 @@
+inputs: 
+  - Filename:   Y90_PET.nii.gz and CT.nii.gz
+  - Injection Y90 Activity (GBq): 4
+  - Scan Time after Injection (h): 2.2
+
+gate exectuion program: {docker run -ti --rm -v /data:/APP opengatecollaboration/gate:9.4-docker  "-a [nb,20] mac/executor.mac"}
+
+outputs:
+  - Y90 PET Doserate in GBq/h
+  - Y90 PET Dosimetry and Deposited Energy files in beta and gamma.
+  - output file in nii.gz format

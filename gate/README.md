@@ -1,0 +1,86 @@
+# Y90 GATE Monte Carlo Simulation
+
+This directory contains scripts for running Y90 dosimetry calculations using GATE Monte Carlo simulations.
+
+## Overview
+
+The scripts in this directory allow you to:
+
+1. Run Y90 dosimetry simulations using GATE v9.4
+2. Calculate dose rates in GBq/h
+3. Generate separate beta and gamma dose components
+4. Output results in NIfTI (.nii.gz) format
+
+## Requirements
+
+- Docker with GATE 9.4 image (`opengatecollaboration/gate:9.4-docker`)
+- Python 3.6+ with the following packages:
+  - numpy
+  - nibabel
+  - pathlib
+
+## Input Files
+
+- Y90 PET image (NIfTI format)
+- CT image (NIfTI format)
+
+## Usage
+
+```bash
+python run_y90_simulation.py --pet /path/to/Y90_PET.nii.gz --ct /path/to/CT.nii.gz --output /path/to/output_dir [options]
+```
+
+### Command Line Arguments
+
+- `--pet`: Path to Y90 PET image (required)
+- `--ct`: Path to CT image (required)
+- `--output`: Output directory (required)
+- `--activity`: Injection Y90 Activity in GBq (default: 4.0)
+- `--time`: Scan Time after Injection in hours (default: 2.2)
+- `--particles`: Number of particles to simulate (default: 20,000,000)
+- `--local`: Use local GATE installation instead of Docker (default: use Docker)
+
+## Output Files
+
+The script generates the following output files:
+
+- `Y90_beta_doserate.nii.gz`: Beta dose rate in GBq/h
+- `Y90_gamma_doserate.nii.gz`: Gamma dose rate in GBq/h
+- `Y90_total_doserate.nii.gz`: Total dose rate in GBq/h
+- `Y90_beta_dose.nii.gz`: Beta absorbed dose
+- `Y90_gamma_dose.nii.gz`: Gamma absorbed dose
+- `Y90_total_dose.nii.gz`: Total absorbed dose
+
+## Directory Structure
+
+```
+gate/
+├── mac/
+│   └── executor.mac       # GATE macro file for Y90 simulation
+├── run_y90_simulation.py  # Python script to run simulation
+├── requirements.txt       # Input/output specifications
+└── README.md             # This file
+```
+
+## How It Works
+
+1. The script prepares the input data by scaling the PET image to the actual activity based on injection amount and decay time.
+2. It creates a directory structure for the GATE simulation with the necessary input files.
+3. The GATE simulation is run using Docker (or local installation if specified).
+4. The simulation outputs are processed to generate dose rate and absorbed dose files.
+5. All results are saved in NIfTI format in the specified output directory.
+
+## GATE Macro File
+
+The `executor.mac` file contains the GATE configuration for the Y90 simulation. It sets up:
+
+- Material properties
+- Geometry based on the CT image
+- Y90 source definition based on the PET image
+- Separate dose actors for beta and gamma components
+- Energy spectrum actor for detailed energy deposition analysis
+
+## References
+
+- GATE documentation: https://opengate.readthedocs.io/
+- Y90 dosimetry guidelines: https://www.eanm.org/publications/guidelines/

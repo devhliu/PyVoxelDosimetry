@@ -1,0 +1,86 @@
+#  *********************************************************************
+#  Y90 Dosimetry Simulation Macro for GATE v9.4
+#  *********************************************************************
+
+# Set the visualization
+/vis/disable
+
+# Set material database
+/gate/geometry/setMaterialDatabase /APP/data/GateMaterials.db
+
+# Define world - size based on PET dimensions plus 32 voxels margin
+/gate/world/geometry/setXLength [WORLD_SIZE_X] mm
+/gate/world/geometry/setYLength [WORLD_SIZE_Y] mm
+/gate/world/geometry/setZLength [WORLD_SIZE_Z] mm
+/gate/world/setMaterial Air
+
+# Patient geometry from CT
+/gate/world/daughters/name patient
+/gate/world/daughters/insert ImageNestedParametrisedVolume
+
+# Set CT image directly in HU units
+/gate/patient/geometry/setImage /APP/data/CT.mhd
+/gate/patient/geometry/setRangeToMaterialFile /APP/data/HU_to_material.txt
+/gate/patient/geometry/setVoxelSize [PET_VOXEL_SIZE_X] [PET_VOXEL_SIZE_Y] [PET_VOXEL_SIZE_Z] mm
+/gate/patient/geometry/setPosition 0. 0. 0. mm
+
+# Physics list for Y90 simulation
+/gate/physics/addPhysicsList QGSP_BIC_EMY
+
+# Y90 source from PET image
+/gate/source/addSource y90source voxel
+/gate/source/y90source/reader/insert image
+/gate/source/y90source/imageReader/translator/insert linear
+/gate/source/y90source/imageReader/linearTranslator/setScale 1.0 Bq
+/gate/source/y90source/setImage /APP/data/Y90_PET.mhd
+/gate/source/y90source/setPosition 0. 0. 0. mm
+
+# Y90 properties
+/gate/source/y90source/gps/particle ion
+/gate/source/y90source/gps/ion 39 90 0 0
+/gate/source/y90source/setForcedUnstableFlag true
+/gate/source/y90source/useDefaultHalfLife
+
+# Beta dose actor
+/gate/actor/addActor DoseActor betaDoseActor
+/gate/actor/betaDoseActor/save /APP/output/beta_dose
+/gate/actor/betaDoseActor/attachTo patient
+/gate/actor/betaDoseActor/stepHitType random
+/gate/actor/betaDoseActor/setResolution [PET_MATRIX_SIZE_X] [PET_MATRIX_SIZE_Y] [PET_MATRIX_SIZE_Z]
+/gate/actor/betaDoseActor/enableDose true
+/gate/actor/betaDoseActor/enableSquaredDose true
+/gate/actor/betaDoseActor/enableUncertaintyDose true
+/gate/actor/betaDoseActor/setDoseAlgorithm VolumeWeighting
+/gate/actor/betaDoseActor/setVoxelSize [PET_VOXEL_SIZE_X] [PET_VOXEL_SIZE_Y] [PET_VOXEL_SIZE_Z] mm
+
+# Gamma dose actor
+/gate/actor/addActor DoseActor gammaDoseActor
+/gate/actor/gammaDoseActor/save /APP/output/gamma_dose
+/gate/actor/gammaDoseActor/attachTo patient
+/gate/actor/gammaDoseActor/stepHitType random
+/gate/actor/gammaDoseActor/setResolution [PET_MATRIX_SIZE_X] [PET_MATRIX_SIZE_Y] [PET_MATRIX_SIZE_Z]
+/gate/actor/gammaDoseActor/enableDose true
+/gate/actor/gammaDoseActor/enableSquaredDose true
+/gate/actor/gammaDoseActor/enableUncertaintyDose true
+/gate/actor/gammaDoseActor/setDoseAlgorithm VolumeWeighting
+/gate/actor/gammaDoseActor/setVoxelSize [PET_VOXEL_SIZE_X] [PET_VOXEL_SIZE_Y] [PET_VOXEL_SIZE_Z] mm
+
+# Energy deposition actor
+/gate/actor/addActor EnergySpectrumActor energyActor
+/gate/actor/energyActor/save /APP/output/energy_spectrum
+/gate/actor/energyActor/attachTo patient
+/gate/actor/energyActor/setEmin 0 keV
+/gate/actor/energyActor/setEmax 2500 keV
+/gate/actor/energyActor/setNumberOfBins 250
+
+# Simulation settings
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed auto
+
+# Enable multicore processing with n-cores cores
+/gate/cluster/setDefaultPlatform openmp
+/gate/cluster/setVerboseLevel 1
+/gate/cluster/setNumberOfThreads n-cores
+
+/gate/application/setTotalNumberOfPrimaries [nb]
+/gate/application/start

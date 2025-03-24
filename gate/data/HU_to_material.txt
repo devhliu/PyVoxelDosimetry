@@ -1,0 +1,20 @@
+# HU to material conversion table for GATE
+# Format: HU_min HU_max Material
+# Based on standard CT HU ranges for different tissues
+
+-1050 -950 Air
+-949 -120 Lung
+-119 -83 Adipose
+-82 -53 Breast
+-52 -23 Adipose
+-22 7 Breast
+8 37 Adipose
+38 59 Breast
+60 79 Tissue
+80 120 Muscle
+121 200 Liver
+201 300 Blood
+301 400 SpineBone
+401 1000 RibBone
+1001 2000 Bone
+2001 3000 Tooth
