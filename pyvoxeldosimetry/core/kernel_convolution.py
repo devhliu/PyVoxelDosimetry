@@ -4,8 +4,9 @@ Dose point kernel convolution calculator.
 import numpy as np
 from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass
-from .dosimetry_base import DosimetryCalculator
-from ..data.dose_kernels import load_kernel
+from pyvoxeldosimetry.core.dosimetry_base import DosimetryCalculator
+from pyvoxeldosimetry.core.utils import load_kernel
+from pyvoxeldosimetry.data.dose_kernels.kernel_factory import KernelFactory
 
 @dataclass
 class DecayProperties:
@@ -30,18 +31,18 @@ class KernelConvolutionCalculator(DosimetryCalculator):
                  config: Optional[Dict[str, Any]] = None):
         """Initialize calculator."""
         super().__init__(radionuclide, tissue_name, config)
-        self.kernel_manager = KernelManager()
+        self.kernel_factory = KernelFactory()
         self.kernel_resolution = kernel_resolution
         self.tissue_name = tissue_name
         self._load_dose_kernel()
         
     def _load_dose_kernel(self):
         """Load or generate dose kernel."""
-        self.kernel = self.kernel_manager.get_kernel(
-            self.radionuclide,
-            self.tissue_name,
-            self.kernel_resolution,
-            size=(64, 64, 64)  # Default size
+        self.kernel = self.kernel_factory.get_kernel(
+            nuclide=self.radionuclide,
+            tissue_type=self.tissue_name,
+            voxel_size=self.kernel_resolution,
+            grid_size=(64, 64, 64)  # You may want to make this configurable or use the factory default
         )
         
     def calculate_dose_rate(self,

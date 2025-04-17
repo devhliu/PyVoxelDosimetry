@@ -12,6 +12,7 @@ import json
 import nibabel as nib
 from datetime import datetime
 from scipy.interpolate import interp1d
+from pyvoxeldosimetry.io.nifti import is_nifti_file
 
 def load_kernel(filename: Union[str, Path]) -> Tuple[np.ndarray, Dict[str, Any]]:
     """

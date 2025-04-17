@@ -13,8 +13,14 @@ import numpy as np
 import SimpleITK as sitk
 from pathlib import Path
 
-from .dosimetry_base import DosimetryCalculator
-from .utils import save_dose_map, load_dose_map
+from pyvoxeldosimetry.io.dicom import (
+    load_dicom_series, convert_pet_dicom_to_mhd, convert_ct_dicom_to_mhd,
+    is_dicom_directory, is_pet_dicom, is_ct_dicom, convert_mhd_to_dicom, detect_input_format
+)
+from pyvoxeldosimetry.io.nifti import is_nifti_file, convert_mhd_to_nifti
+
+from pyvoxeldosimetry.core.dosimetry_base import DosimetryCalculator
+from pyvoxeldosimetry.core.utils import save_dose_map, load_dose_map
 
 class GateMonteCarloCalculator(DosimetryCalculator):
     """

@@ -1,7 +1,11 @@
 inputs: 
-  - Filename:   Y90_PET.nii.gz and CT.nii.gz
+  - Filename:   Y90_PET.nii.gz/mhd or DICOM directory and CT.nii.gz/mhd or DICOM directory
   - Injection Y90 Activity (GBq): 4
   - Scan Time after Injection (h): 2.2
+
+dependencies:
+  - SimpleITK
+  - pydicom
 
 gate exectuion program: {docker run -ti --rm -v /data:/APP opengatecollaboration/gate:9.4-docker  "-a [nb,20] mac/executor.mac"}
 

@@ -64,3 +64,21 @@ class BaseKernelGenerator(ABC):
         plt.title(f"{self.config['nuclide']['name']} - {self.tissue_type}")
         plt.savefig(output_dir / f"{self.config['nuclide']['symbol']}_{self.tissue_type}_xy.png")
         plt.close()
+    
+    def _save_metadata(self, kernel: np.ndarray, output_dir: Path):
+        """Save kernel metadata as JSON."""
+        metadata = {
+            "nuclide": self.config.get("nuclide", {}),
+            "tissue_type": self.tissue_type,
+            "kernel_shape": kernel.shape,
+            "voxel_size": self.config.get("kernel", {}).get("voxel_size", None),
+            "grid_size": self.config.get("kernel", {}).get("grid_size", None),
+            "scaling_factor": self.config.get("kernel", {}).get("scaling_factor", None),
+            "created_by": self.config.get("metadata", {}).get("created_by", None),
+            "created_at": self.config.get("metadata", {}).get("created_at", None),
+            "method": self.config.get("metadata", {}).get("method", None),
+        }
+        meta_path = output_dir / f"{self.config['nuclide']['symbol']}_{self.tissue_type}_kernel_meta.json"
+        with open(meta_path, "w") as f:
+            import json
+            json.dump(metadata, f, indent=2)

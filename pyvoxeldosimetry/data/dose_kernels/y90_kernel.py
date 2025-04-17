@@ -144,3 +144,19 @@ class Y90KernelGenerator(BaseKernelGenerator):
         # Mean energy for bremsstrahlung attenuation (~0.5 MeV)
         base_mu = 0.096  # cm^-1 in water at 0.5 MeV
         return base_mu * (self.tissue_properties['density'] / 1.0)
+
+    def _get_tissue_scaling_factor(self) -> float:
+        """Return tissue-specific scaling factor for kernel normalization."""
+        # You can customize this logic as needed
+        if self.tissue_type == "water":
+            return 1.0
+        elif self.tissue_type == "bone":
+            return 1.15
+        elif self.tissue_type == "lung":
+            return 1.04
+        elif self.tissue_type == "soft_tissue":
+            return 1.04
+        elif self.tissue_type == "iodine_contrast":
+            return 1.12
+        else:
+            return 1.0

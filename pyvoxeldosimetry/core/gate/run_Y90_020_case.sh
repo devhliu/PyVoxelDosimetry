@@ -1,0 +1,1 @@
+python run_gate_simulation.py --pet /mnt/d/DATA/010_Dosimetry/001_Gate/Y90-SIRT-PUMCH/Y90-020/DICOM/20min_256M_PET_4i10s_G2.0_123059_313 --ct /mnt/d/DATA/010_Dosimetry/001_Gate/Y90-SIRT-PUMCH/Y90-020/DICOM/WB_CT_3.0_x_2.0_123002_202 --output /mnt/d/DATA/010_Dosimetry/001_Gate/Y90-SIRT-PUMCH/Y90-020/DICOM/Dose

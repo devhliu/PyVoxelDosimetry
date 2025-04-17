@@ -1,143 +1,47 @@
 # PyVoxelDosimetry
 
-## Internal Dosimetry Package for Nuclear Medicine - Overview
-PyVoxelDosimetry is a comprehensive Python package for voxel-level internal dosimetry calculations in nuclear medicine. It supports various radionuclide tracers and provides multiple calculation methods, advanced tissue composition handling, and deep learning-based segmentation.
+PyVoxelDosimetry is a Python package for performing voxel-based dosimetry calculations, particularly for radionuclide therapies such as Yttrium-90 (Y90). It provides tools for simulating activity distributions, calculating dose distributions, and visualizing results using kernel convolution methods.  
+**GATE Monte Carlo simulation support is now provided via the `pyvoxeldosimetry.core.gate` and `pyvoxeldosimetry.core.gate_monte_carlo` modules.**
 
 ## Features
 
-### 1. Dosimetry Calculation Methods
-- **Local Energy Deposition**: Fast approximation for short-range emissions
-- **Dose Kernel Convolution**: Pre-calculated kernels for efficient computation
-- **GPU-accelerated Monte Carlo**: Full physics simulation with CUDA support
-
-### 2. Supported Radionuclides
-- Positron Emitters: F-18, Ga-68, Cu-64, Zr-89
-- Beta Emitters: Y-90, Lu-177, Tb-161
-- Beta/Gamma Emitters: I-131
-- Alpha Emitters: Ac-225, Pb-212
-
-### 3. Image Processing & Analysis
-- Multi-timepoint registration (elastix, ANTs, greedy)
-- CT-based tissue composition calculation
-- Metal artifact and contrast agent handling
-- Time-activity curve fitting and integration
-
-### 4. Deep Learning Segmentation (nnU-Net v2)
-- Automated organ segmentation
-- Lesion detection and segmentation
-- Support for PET/CT and SPECT/CT
-  
-
+- Voxel-based dosimetry calculations for various radionuclides
+- Support for kernel convolution methods
+- Customizable tissue composition and kernel resolution
+- Example scripts for common dosimetry scenarios
+- Visualization of activity and dose distributions
+- GATE Monte Carlo simulation integration via `core.gate` and `core.gate_monte_carlo`
 
 ## Installation
 
-### Prerequisites
-- Python ≥ 3.8
-- CUDA-capable GPU (recommended)
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/devhliu/PyVoxelDosimetry.git
+    cd PyVoxelDosimetry
+    ```
 
-### Install via pip
+2. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+   Typical dependencies include:
+   - numpy
+   - matplotlib
+
+## Usage
+
+### Example: Single Timepoint Y90 Physical Decay
+
+An example script is provided in `examples/single_timepoint_y90_physical_decay.py`. This script demonstrates how to:
+
+- Create a spherical activity distribution
+- Set up a dose calculator for Y90 using kernel convolution methods
+- Calculate the dose distribution at a single timepoint
+- Visualize the activity and dose distributions
+
+To run the example:
+
 ```bash
-pip install pyvoxeldosimetry
+python examples/single_timepoint_y90_physical_decay.py
 ```
-
-### Install from source
-```bash
-git clone https://github.com/devhliu/pyvoxeldosimetry.git
-cd pyvoxeldosimetry
-pip install -e .
-```
-
-## Quick Start
-### Basic Usage
-```bash
-from pyvoxeldosimetry import MonteCarloCalculator
-from pyvoxeldosimetry.tissue import TissueComposition
-from pyvoxeldosimetry.segmentation import OrganSegmentation
-
-# Initialize components
-tissue_comp = TissueComposition()
-organ_seg = OrganSegmentation(model_type="total_body")
-
-# Perform organ segmentation
-organ_masks = organ_seg.segment_organs(ct_image)
-
-# Initialize dosimetry calculator
-calculator = MonteCarloCalculator(
-    radionuclide="Lu177",
-    tissue_composition=tissue_comp
-)
-
-# Calculate dose rate
-dose_rate = calculator.calculate_dose_rate(
-    activity_map=spect_data,
-    voxel_size=(1, 1, 1)  # mm
-)
-```
-
-### Time Integration Example
-```bash
-from pyvoxeldosimetry.time_integration import TimeCurveFitting
-
-# Initialize time curve fitting
-fitter = TimeCurveFitting(half_life=6.647 * 24 * 60)  # Lu-177 half-life in minutes
-
-# Fit time-activity curves and calculate accumulated dose
-accumulated_dose = fitter.fit_time_activity_curve(
-    times=[0, 24, 48, 72],  # hours
-    activities=[spect_data_0h, spect_data_24h, spect_data_48h, spect_data_72h]
-)
-```
-
-### Package Structure
-```bash
-pyvoxeldosimetry/
-├── data/
-│   ├── dose_kernels/          # Pre-calculated dose kernels
-│   └── pretrained_models/     # nnU-Net models
-├── core/                      # Core dosimetry calculations
-├── tissue/                    # Tissue composition handling
-├── segmentation/             # Deep learning segmentation
-├── registration/             # Image registration
-└── time_integration/         # Time-activity fitting
-```
-
-## Dose Kernel Data
-The package includes pre-calculated dose kernels for supported radionuclides at multiple spatial resolutions (1mm, 2mm, 3mm). These are automatically loaded based on the selected radionuclide and voxel size.
-
-## Monte Carlo Decay Data
-### Supported Radionuclides:
-- F-18 (β+ emitter)
-- Ga-68 (β+ emitter)
-- Cu-64 (β+/EC)
-- Zr-89 (β+)
-- Y-90 (β-)
-- I-131 (β-/γ)
-- Lu-177 (β-/γ)
-- Tb-161 (β-)
-- Ac-225 (α)
-- Pb-212 (α/β-)
-
-Decay data is compiled from:
-
-- ICRP Publication 107
-- MIRD Radionuclide Data
-- Nuclear Data Sheets
-- NIST Standard Reference Data
-
-## Segmentation Models
-Pre-trained nnU-Net v2 models are provided for:
-
-- Total body organ segmentation
-- Tumor/lesion segmentation for PET/CT
-- Tumor/lesion segmentation for SPECT/CT
-
-## Acknowledgments
-- nnU-Net v2 team for the segmentation framework
-- Elastix, ANTs, and Greedy teams for registration tools
-- The nuclear medicine community for dosimetry standards and data
-- 3.5 Sonnet for the initial concept and guidance
-
-## Roadmap
-- Support for additional radionuclides
-- Web-based visualization interface
-- Integration with clinical workflow systems

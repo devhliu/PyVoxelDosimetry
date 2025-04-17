@@ -18,17 +18,42 @@ The scripts in this directory allow you to:
   - numpy
   - nibabel
   - pathlib
+  - SimpleITK
+  - pydicom (for DICOM support)
 
 ## Input Files
 
-- Y90 PET image (NIfTI format)
-- CT image (NIfTI format)
+- Y90 PET image (NIfTI, MHD format, or DICOM series)
+- CT image (NIfTI, MHD format, or DICOM series)
 
 ## Usage
 
 ```bash
 python run_y90_simulation.py --pet /path/to/Y90_PET.nii.gz --ct /path/to/CT.nii.gz --output /path/to/output_dir [options]
 ```
+
+### DICOM Support
+
+The simulation now supports DICOM format for both PET and CT series:
+
+```bash
+python run_y90_simulation.py --pet /path/to/PET_DICOM_directory --ct /path/to/CT_DICOM_directory --output /path/to/output_dir [options]
+```
+
+When providing DICOM directories, the script automatically:
+1. Detects if the input is a DICOM directory
+2. Converts PET DICOM series to MHD format with proper activity values (Bq/mL)
+3. Converts CT DICOM series to MHD format with proper HU values
+4. Proceeds with the simulation using the converted files
+
+#### DICOM Processing Details
+
+The `dicom_utils.py` module handles DICOM processing with the following features:
+
+- **PET DICOM Processing**: Extracts activity concentration values (Bq/mL) from PET DICOM series, applying appropriate rescale factors and vendor-specific quantification factors
+- **CT DICOM Processing**: Converts CT values to Hounsfield Units (HU) using rescale slope and intercept from DICOM metadata
+- **Automatic Detection**: Identifies DICOM directories and determines modality (PET or CT) from DICOM headers
+- **Vendor Support**: Handles vendor-specific DICOM implementations (GE, Siemens, etc.) for proper quantification
 
 ### Command Line Arguments
 
@@ -58,6 +83,7 @@ gate/
 ├── mac/
 │   └── executor.mac       # GATE macro file for Y90 simulation
 ├── run_y90_simulation.py  # Python script to run simulation
+├── dicom_utils.py         # Utilities for DICOM file handling
 ├── requirements.txt       # Input/output specifications
 └── README.md             # This file
 ```

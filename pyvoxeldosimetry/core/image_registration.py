@@ -39,16 +39,16 @@ class ImageRegistration:
         """Initialize registration algorithm based on method."""
         if self.method == 'rigid':
             self.transform = sitk.Euler3DTransform()
-            self.optimizer = sitk.RegularStepGradientDescentOptimizerv4()
-            self.metric = sitk.MattesMutualInformationImageMetricv4()
+            # self.optimizer = sitk.RegularStepGradientDescentOptimizer()  # REMOVE
+            # self.metric = sitk.MattesMutualInformationImageMetric()      # REMOVE
         elif self.method == 'affine':
             self.transform = sitk.AffineTransform(3)
-            self.optimizer = sitk.RegularStepGradientDescentOptimizerv4()
-            self.metric = sitk.MattesMutualInformationImageMetricv4()
+            # self.optimizer = sitk.RegularStepGradientDescentOptimizer()  # REMOVE
+            # self.metric = sitk.MattesMutualInformationImageMetric()      # REMOVE
         elif self.method == 'deformable':
             self.transform = sitk.BSplineTransformInitializer(sitk.Image([10,10,10], sitk.sitkFloat32))
-            self.optimizer = sitk.LBFGSBOptimizerv4()
-            self.metric = sitk.MeanSquaresImageMetricv4()
+            # self.optimizer = sitk.LBFGSBOptimizer()                     # REMOVE
+            # self.metric = sitk.MeanSquaresImageMetric()                 # REMOVE
         else:
             raise ValueError(f"Unsupported registration method: {self.method}")
             

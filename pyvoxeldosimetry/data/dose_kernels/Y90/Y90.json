@@ -13,21 +13,21 @@
   "nuclide": {
     "name": "Yttrium-90",
     "symbol": "Y90",
-    "half_life": 64.1,  // hours
+    "half_life": 64.1,
     "decay_modes": {
       "beta-": 0.9999,
       "internal_transition": 0.0001
     },
     "particle_energies": {
-      "beta-_max": 2.280,  // MeV
-      "beta-_mean": 0.934, // MeV
+      "beta-_max": 2.280,
+      "beta-_mean": 0.934,
       "bremsstrahlung": true
     }
   },
   "kernel": {
-    "voxel_size": 1.0,  // mm
-    "grid_size": [201, 201, 201],  // larger grid due to high energy
-    "max_range": 100.0,  // mm
+    "voxel_size": 1.0,
+    "grid_size": [201, 201, 201],
+    "max_range": 100.0,
     "scaling_factor": 1.0e-12,
     "supported_media": [
       "water",
